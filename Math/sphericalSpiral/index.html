@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        @import url(../../commen.css);
+        body {
+            background-color: #000;
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+            margin: calc(50vh - 125px) auto 0;
+            background-color: #000;
+            border: 1px solid #222;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="c"></canvas>
+    <a class="source" href="https://codepen.io/enxaneta/pen/aNQzej">Source</a>
+    <script>
+        var canvas = document.getElementById("c");
+        var ctx = canvas.getContext("2d");
+        var cw = canvas.width = 300,
+            cx = cw / 2;
+        var ch = canvas.height = 300,
+            cy = ch / 2;
+        ctx.fillStyle = "#6ab150";
+        var frames = 0;
+        var rad = Math.PI / 180;
+        var R = 120;
+        var a = 30; //num spires
+        var phi = 0;
+
+        function Draw() {
+            requestId = window.requestAnimationFrame(Draw);
+            frames += .5;
+
+            phi += .02;
+
+            ctx.clearRect(0, 0, cw, ch);
+
+            for (var t = -1; t < 1; t += .005) {
+                var r = (1 - Math.abs(t) + .5) * 5;
+                var l = 20 * Math.sin(r * t);
+                var z = R * t * Math.sin(frames * rad);
+                var x = R * Math.sqrt(1 - t * t) * Math.cos(a * Math.PI * t + phi);
+                var y = R * Math.sqrt(1 - t * t) * Math.sin(a * Math.PI * t + phi) * Math.cos(frames * rad);
+
+                ctx.fillStyle = Grd(cx + x, cy + y + z, r, 10)
+
+                ctx.beginPath();
+                ctx.arc(cx + x, cy + y + z, r, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+        }
+
+        requestId = window.requestAnimationFrame(Draw);
+
+        function Grd(x, y, r, l) {
+            grd = ctx.createRadialGradient(x, y - .6 * r, 0, x, y - .6 * r, r);
+            grd.addColorStop(0, 'hsla(0,50%,' + (100 - l) + '%,1)');
+            grd.addColorStop(0.4, 'hsla(0,50%,' + (47 - l) + '%,1)');
+            grd.addColorStop(1, 'hsla(0,50%,0%,0.9)');
+            return grd;
+        }
+    </script>
+</body>
+
+</html>

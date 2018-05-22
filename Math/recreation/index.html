@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Canvas recreation of Ana Tudor's pen</title>
+    <style>
+        @import url(../../commen.css);
+        canvas {
+            width: 100%;
+            height: 100vh;
+        }
+
+        /* from Ana's css */
+
+        .controls {
+            position: absolute;
+            top: 1em;
+            right: 1em;
+            padding: 0.5em 1em;
+            background: whitesmoke;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id=c></canvas>
+    <!-- from Ana's html -->
+    <div class='controls'>
+        <input type='range' min='2' max='64' step='1' value='19' id='nc-slider' />
+    </div>
+    <a href="https://codepen.io/towc/pen/LEVWKB" class="source">Source</a>
+    <script src="index.js"></script>
+</body>
+
+</html>

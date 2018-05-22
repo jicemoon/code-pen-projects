@@ -1,0 +1,111 @@
+$pi: 3.14159265359;
+$_precision: 10;
+@function pow($base, $exp) {
+    $value: $base;
+    @if $exp>1 {
+        @for $i from 2 through $exp {
+            $value: $value * $base;
+        }
+    }
+    @if $exp < 1 {
+        @for $i from 0 through -$exp {
+            $value: $value / $base;
+        }
+    }
+    @return $value;
+}
+
+@function fact($num) {
+    $fact: 1;
+    @if $num>0 {
+        @for $i from 1 through $num {
+            $fact: $fact * $i;
+        }
+    }
+    @return $fact;
+}
+
+@function _to_unitless_rad($angle) {
+    @if unit($angle)=="deg" {
+        $angle: $angle / 180deg * $pi;
+    }
+    @if unit($angle)=="rad" {
+        $angle: $angle / 1rad;
+    }
+    @return $angle;
+}
+
+@function sin($angle) {
+    $a: _to_unitless_rad($angle);
+    $sin: $a;
+    @for $n from 1 through $_precision {
+        $sin: $sin + (pow(-1, $n) / fact(2 * $n + 1)) * pow($a, (2 * $n + 1));
+    }
+    @return $sin;
+}
+
+@function cos($angle) {
+    $a: _to_unitless_rad($angle);
+    $cos: 1;
+    @for $n from 1 through $_precision {
+        $cos: $cos + ( pow(-1, $n) / fact(2*$n)) * pow($a, 2*$n);
+    }
+    @return $cos;
+}
+
+@function tan($angle) {
+    @return sin($angle) / cos($angle);
+}
+
+body {
+    background-color: #340468;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    perspective: 3.125vmin;
+}
+
+body::after {
+    background-color: #340468;
+    border-radius: 50%;
+    box-shadow: 0 0 2.5vmin 2.5vmin #340468;
+    content: "";
+    height: 2.5vmin;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 2.5vmin;
+} // Polygon -----------------------------
+.polygon {
+    //animation: 4s linear infinite polygon;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform-style: preserve-3d;
+    transform: rotatex(90deg) rotatey(0) translatey(-25vmin);
+}
+
+@keyframes polygon {
+    100% {
+        transform: rotatex(90deg) rotatey(360deg) translatey(0);
+    }
+} // Side --------------------------------
+$n: 16; // number of sides
+$r: 25vmin; // inradius (apothem)
+$a: 2 * $r * tan(180deg / $n); // side length
+.side {
+    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/231848/fractal-fire-sky-seamless-background.jpg);
+    background-size: ($n * $a) 25%;
+    filter: hue-rotate(-11.25deg);
+    height: 100vmin;
+    position: absolute;
+    transform-origin: 0;
+    width: calc(#{$a} + 2px);
+    @for $i from 1 through $n {
+        &:nth-child(#{$i}) {
+            background-position: ($a * $i * -1) 0;
+            transform: rotatey(360deg / $n * $i) translate3d(-50%, -50%, $r);
+        }
+    }
+}

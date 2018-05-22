@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./index.css">
+    <title>Dynamically generated css animated bar chart</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>Dynamically generated 3D bar chart</h1>
+        <p>Add values to the javascript array to edit the chart</p>
+        <div id="chart"></div>
+    </div>
+    <a href="https://codepen.io/tomesch/pen/itjqk" class="source">Source</a>
+    <script>
+        var values = [250, 500, 340, 290, 200, 50, 45, 85, 95, 120];
+
+        drawChart(values, "#chart", 15) // You can adjust the margin between each bar by changing 10 to whatever you like
+
+        function drawChart(data, selector, padding) {
+            var max = Math.max.apply(Math, data);
+            var chart = document.querySelector(selector);
+            var barwidth = ((chart.offsetWidth - (values.length - 1) * padding - (data.length) * 10) / data.length);
+            var sum = data.reduce(function (pv, cv) {
+                return pv + cv;
+            }, 0);
+            var left = 0;
+            for (var i in data) {
+                var newbar = document.createElement('div');
+                newbar.setAttribute("class", "bar");
+                newbar.style.width = barwidth + "px";
+                newbar.style.height = ((data[i] / max) * 100) + "%";
+                newbar.style.left = left + "px";
+                chart.appendChild(newbar);
+                left += (barwidth + padding + 10);
+            }
+        }
+    </script>
+</body>
+
+</html>

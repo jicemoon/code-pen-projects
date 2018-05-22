@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="index.css">
+    <title>Fluffy ball</title>
+</head>
+
+<body>
+    <main id="container">
+        <section id="canvas_container">
+
+        </section>
+
+        <aside id="parameters">
+            <label for="gravity">Gravity</label>
+            <input type="range" min="-0.9" max="0.9" value="0.4" step="0.1" id="gravity" onchange="changeGravity(this.value)">
+
+            <label for="stiffness">Stiffness</label>
+            <input type="range" min="0.2" max="10" value="1" step="0.1" id="stiffness" onchange="changeStiffness(this.value)">
+
+            <label for="friction">Friction</label>
+            <input type="range" min="0.1" max="0.96" value="0.96" step="0.01" id="friction" onchange="changeFriction(this.value)">
+
+            <label for="hair_length">Fur length</label>
+            <input type="number" min="10" max="800" value="100" step="1" id="hair_length" onchange="changeHairLength(this.value)">
+
+            <label for="hair_division">Hair divisions</label>
+            <input type="number" min="3" max="20" value="5" step="1" id="hair_division" onchange="changeHairDivision(this.value)">
+
+            <label for="hair_number">Hair number</label>
+            <input type="number" min="10" max="100" value="500" step="1" id="hair_number" onchange="changeHairNumber(this.value)">
+
+
+            <label for="hair_color_list">Hair color</label>
+
+            <select id="hair_color_list" onchange="changeHairColor(this.value)">
+
+            </select>
+            <input type="button" value="generate" onclick="generateFluff()" />
+        </aside>
+
+    </main>
+
+    <a href="https://codepen.io/Gthibaud/pen/jLvwoP" class="source">Source</a>
+
+    <script src="./index.js"></script>
+</body>
+
+</html>

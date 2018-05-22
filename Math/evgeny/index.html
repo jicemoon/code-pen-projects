@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="c"></canvas>
+    Current factor:
+    <input id="factor" onchange="setFactor()" type="number" value="0">
+    Speed:
+    <input id="speed" onchange="setSpeed()" type="number" value="0.1">
+    <button onclick="play()" style="cursor:pointer;">Play</button>
+    <button onclick="stop()" style="cursor:pointer;">Stop</button>
+
+    <script src="./index.js"></script>
+</body>
+</html>
