@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trigonometric Pattern</title>
+    <style>
+        @import url(../../commen.css);
+        canvas {
+            widows: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas></canvas>
+    <a href="https://codepen.io/gabrielsxp/pen/mWVZeW" class="source">Source</a>
+
+    <script>
+        (function () {
+            var canvas = document.querySelector('canvas');
+            var context = canvas.getContext('2d');
+            var colors = ["#32d0bc", "#75a51f"];
+            var control = 1;
+            var time = 0;
+            var w = canvas.width = innerWidth;
+            var h = canvas.height = innerHeight;
+            var m = Math;
+            var cos = m.cos;
+            var sin = m.sin;
+            var PI = m.PI;
+            var max = 7000;
+            
+            function loop(){
+                canvas.width = canvas.width;
+                time += control;
+                i = max;
+                while (i--) {
+                    r = (w + h) / 2 * (cos((time + i) * (0.75 + (sin(time / 100000) / PI * 0.25))) / PI);
+                    setColor(max, i);
+                    context.fillRect((cos(i)) * r + w / 2, (sin(i)) * r + h / 2, 4, 4);
+                }
+                requestAnimationFrame(loop);
+            }
+            loop();
+
+            function setColor(init, current) {
+                if (current <= init * 0.5) {
+                    context.fillStyle = colors[0];
+                } else {
+                    context.fillStyle = colors[1];
+                }
+            }
+        })()
+    </script>
+</body>
+
+</html>
